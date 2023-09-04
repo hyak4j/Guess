@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Guess</string>
     <string name="ok">OK</string>
+    <string name="please_enter_a_number">Please Enter A Number (1-10)</string>
+    <string name="you_got_it">You got it!</string>
+    <string name="bigger">Bigger</string>
+    <string name="smaller">Smaller</string>
+    <string name="message">Message</string>
+
 </resources>
