@@ -5,21 +5,41 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 import com.hyak4j.guess.databinding.ActivityMaterialBinding
 
 class MaterialActivity : AppCompatActivity() {
+    private lateinit var viewModel: GuessViewModel
     private lateinit var binding: ActivityMaterialBinding
-    val secretNumber = SecretNumber()
     val TAG = MaterialActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-     binding = ActivityMaterialBinding.inflate(layoutInflater)
-     setContentView(binding.root)
+         binding = ActivityMaterialBinding.inflate(layoutInflater)
+         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        viewModel = ViewModelProvider(this).get(GuessViewModel::class.java)
+        viewModel.counter.observe(this, Observer {data ->
+            binding.includeid.counter.setText(data.toString())
+        })
+
+        viewModel.result.observe(this, Observer {result ->
+            var message = when(result){
+                GameResult.BIGGER -> "Bigger"
+                GameResult.SMALLER -> "Smaller"
+                GameResult.RIGHT -> "You are right"
+            }
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.message))
+                .setMessage(message)
+                .setPositiveButton(getString(R.string.ok), null)
+                .show()
+        })
 
 
 
@@ -34,18 +54,18 @@ class MaterialActivity : AppCompatActivity() {
                 .show()
         }
 
-        binding.includeid.counter.setText(secretNumber.count.toString())
     }
 
     private fun replay() {
-        secretNumber.reset()
-        binding.includeid.counter.setText(secretNumber.count.toString())
+        viewModel.reset()
         binding.includeid.number.setText("")
     }
 
     fun check(view : View){
         // btn_ok
-        val num = binding.includeid.number.text.toString().toInt()
+        val n = binding.includeid.number.text.toString().toInt()
+        viewModel.guess(n)
+        /*val num = binding.includeid.number.text.toString().toInt()
         println("number: $num")
         Log.d(TAG, "Input number: $num")
         val different = secretNumber.validate(num)
@@ -62,7 +82,7 @@ class MaterialActivity : AppCompatActivity() {
             .setTitle(getString(R.string.message))
             .setMessage(message)
             .setPositiveButton(getString(R.string.ok), null)
-            .show()
+            .show()*/
         // Toast
 //        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }

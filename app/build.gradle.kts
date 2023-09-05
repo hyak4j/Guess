@@ -13,7 +13,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    
+
     defaultConfig {
         applicationId = "com.hyak4j.guess"
         minSdk = 26
@@ -43,6 +43,14 @@ android {
 }
 
 dependencies {
+
+    val lifecycle_version = "2.5.1"
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    // Annotation processor
+    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
