@@ -1,5 +1,6 @@
 package com.hyak4j.guess
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -37,7 +38,15 @@ class MaterialActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.message))
                 .setMessage(message)
-                .setPositiveButton(getString(R.string.ok), null)
+                .setPositiveButton(getString(R.string.ok), {dialog, which ->
+                    if (result == GameResult.RIGHT){
+                        // 猜對時導向，RecordActivity
+                        val intent = Intent(this, RecordActivity::class.java)
+                        intent.putExtra("COUNTER", binding.includeid.counter.text)
+                        Log.d(TAG, "onCreate counter: ${binding.includeid.counter.text}")
+                        startActivity(intent)
+                    }
+                })
                 .show()
         })
 
