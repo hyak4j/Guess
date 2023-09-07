@@ -1,5 +1,6 @@
 package com.hyak4j.guess
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -51,7 +52,7 @@ class MaterialActivity : AppCompatActivity() {
         })
 
 
-
+        // 右下角fab按鈕 => 執行重玩
         binding.fab.setOnClickListener { view ->
             AlertDialog.Builder(this)
                 .setTitle("Replay Game")
@@ -62,7 +63,11 @@ class MaterialActivity : AppCompatActivity() {
                 .setNeutralButton("Cancel", null)
                 .show()
         }
-
+        val count = getSharedPreferences("GUESS", Context.MODE_PRIVATE)
+            .getString("COUNTER", "-1")
+        val nick = getSharedPreferences("GUESS", Context.MODE_PRIVATE)
+            .getString("NICKNAME", null)
+        Log.d(TAG, "onCreate share: $count / $nick")
     }
 
     private fun replay() {
