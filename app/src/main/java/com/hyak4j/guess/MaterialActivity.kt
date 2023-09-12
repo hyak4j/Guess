@@ -111,6 +111,20 @@ class MaterialActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy: ")
     }
 
+    fun test(){
+//        val intent = Intent(this, RecordActivity::class.java)
+//        intent.putExtra("A", "AA")
+//        intent.putExtra("B", "BB")
+//        startActivity(intent)
+        // Kotlin intent apply also測試
+        Intent(this, RecordActivity::class.java).apply {
+            putExtra("A", "AA")
+            putExtra("B", "BB")
+        }.also {intent->
+            startActivity(intent)
+        }
+    }
+
     fun check(view : View){
         // btn_ok
         val n = binding.includeid.number.text.toString().toInt()
