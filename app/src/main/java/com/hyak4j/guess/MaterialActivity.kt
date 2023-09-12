@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.hyak4j.guess.databinding.ActivityMaterialBinding
 
 class MaterialActivity : AppCompatActivity() {
+    private val REQUEST_RECORD = 100
     private lateinit var viewModel: GuessViewModel
     private lateinit var binding: ActivityMaterialBinding
     val TAG = MaterialActivity::class.java.simpleName
@@ -46,7 +47,7 @@ class MaterialActivity : AppCompatActivity() {
                         val intent = Intent(this, RecordActivity::class.java)
                         intent.putExtra("COUNTER", binding.includeid.counter.text)
                         Log.d(TAG, "onCreate counter: ${binding.includeid.counter.text}")
-                        startActivity(intent)
+                        startActivityForResult(intent, REQUEST_RECORD)
                     }
                 })
                 .show()
@@ -55,20 +56,24 @@ class MaterialActivity : AppCompatActivity() {
 
         // 右下角fab按鈕 => 執行重玩
         binding.fab.setOnClickListener { view ->
-            AlertDialog.Builder(this)
-                .setTitle("Replay Game")
-                .setMessage("Are you sure?")
-                .setPositiveButton(getString(R.string.ok)) { dialog, which ->
-                    replay()
-                }
-                .setNeutralButton("Cancel", null)
-                .show()
+            replay_Dialog()
         }
         val count = getSharedPreferences("GUESS", Context.MODE_PRIVATE)
             .getString("COUNTER", "-1")
         val nick = getSharedPreferences("GUESS", Context.MODE_PRIVATE)
             .getString("NICKNAME", null)
         Log.d(TAG, "onCreate share: $count / $nick")
+    }
+
+    private fun replay_Dialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Replay Game")
+            .setMessage("Are you sure?")
+            .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                replay()
+            }
+            .setNeutralButton("Cancel", null)
+            .show()
     }
 
     private fun replay() {
@@ -132,4 +137,15 @@ class MaterialActivity : AppCompatActivity() {
 //        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_RECORD){
+            // RecordActivity返回
+            if (resultCode == RESULT_OK){
+                val nickname = data?.getStringExtra("NICK")
+                Log.d(TAG, "onActivityResult: nickname $nickname")
+                replay_Dialog()
+            }
+        }
+    }
 }

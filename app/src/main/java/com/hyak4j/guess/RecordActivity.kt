@@ -1,5 +1,6 @@
 package com.hyak4j.guess
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,10 @@ class RecordActivity : AppCompatActivity() {
                 .apply()
             /*下一行就要讀取 => commit()  :馬上寫入
               之後才讀取    => apply()   :會在適當時間寫入*/
+            val intent = Intent()
+            intent.putExtra("NICK", nick)
+            setResult(RESULT_OK, intent)
+            finish()
         }
     }
 }
