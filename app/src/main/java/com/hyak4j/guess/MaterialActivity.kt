@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import com.hyak4j.guess.databinding.ActivityMaterialBinding
 
 class MaterialActivity : AppCompatActivity() {
@@ -41,15 +40,15 @@ class MaterialActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.message))
                 .setMessage(message)
-                .setPositiveButton(getString(R.string.ok), {dialog, which ->
-                    if (result == GameResult.RIGHT){
+                .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                    if (result == GameResult.RIGHT) {
                         // 猜對時導向，RecordActivity
                         val intent = Intent(this, RecordActivity::class.java)
                         intent.putExtra("COUNTER", binding.includeid.counter.text)
                         Log.d(TAG, "onCreate counter: ${binding.includeid.counter.text}")
                         startActivityForResult(intent, REQUEST_RECORD)
                     }
-                })
+                }
                 .show()
         })
 
