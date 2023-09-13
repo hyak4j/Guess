@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
 import com.hyak4j.guess.data.GameDatabase
 import com.hyak4j.guess.data.Record
 import com.hyak4j.guess.databinding.ActivityRecordBinding
@@ -33,13 +32,11 @@ class RecordActivity : AppCompatActivity() {
               之後才讀取    => apply()   :會在適當時間寫入*/
 
             // 儲存到Room
-            val database = Room.databaseBuilder(this,
-                GameDatabase::class.java, "game.db")
-                .build()
             val record = Record(nick, count.toString().toInt())
             Thread(){
                 //取得DB資料可能耗時
-                database.recordDao().insert(record)
+                GameDatabase.getInstance(this)?.recordDao()?.
+                insert(record)
             }.start()
 
             val intent = Intent()

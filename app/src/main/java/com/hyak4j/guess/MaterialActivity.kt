@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.hyak4j.guess.data.GameDatabase
 import com.hyak4j.guess.databinding.ActivityMaterialBinding
 
 class MaterialActivity : AppCompatActivity() {
@@ -62,6 +63,14 @@ class MaterialActivity : AppCompatActivity() {
         val nick = getSharedPreferences("GUESS", Context.MODE_PRIVATE)
             .getString("NICKNAME", null)
         Log.d(TAG, "onCreate share: $count / $nick")
+
+        // Room資料讀取
+        Thread(){
+            val list = GameDatabase.getInstance(this)?.recordDao()?.getAll()
+            list?.forEach {
+                Log.d(TAG, "onCreate: ${it.nickname} ${it.counter}")
+            }
+        }.start()
     }
 
     private fun replay_Dialog() {
