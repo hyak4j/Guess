@@ -65,12 +65,12 @@ class MaterialActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate share: $count / $nick")
 
         // Room資料讀取
-        Thread(){
-            val list = GameDatabase.getInstance(this)?.recordDao()?.getAll()
-            list?.forEach {
-                Log.d(TAG, "onCreate: ${it.nickname} ${it.counter}")
-            }
-        }.start()
+//        Thread(){
+//            val list = GameDatabase.getInstance(this)?.recordDao()?.getAll()
+//            list?.forEach {
+//                Log.d(TAG, "onCreate: ${it.nickname} ${it.counter}")
+//            }
+//        }.start()
     }
 
     private fun replay_Dialog() {

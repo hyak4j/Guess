@@ -13,4 +13,5 @@ interface RecordDao {
 
     @Query("SELECT * FROM record")
     fun getAll() :List<Record>
+//    suspend fun getAll() :List<Record>
 }

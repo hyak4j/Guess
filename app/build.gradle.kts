@@ -52,12 +52,18 @@ dependencies {
     // Annotation processor
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
 
-    // Room載入套件 =====
-    val roomVersion = "2.5.0"
+    // Room 載入套件
+    val roomVersion = "2.5.2"
     implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
-    // Room載入套件 =====
+    implementation("androidx.room:room-common:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+// 協程載入套件（請根據你的 Kotlin 版本選擇相應的協程版本）
+    val coroutinesVersion = "1.6.4"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+    // Coroutines 載入套件 =====
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")

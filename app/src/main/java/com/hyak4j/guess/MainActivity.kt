@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     private fun functionClicked(position: Int) {
         when(position){
             1 -> startActivity(Intent(this, MaterialActivity::class.java))
+            2 -> startActivity(Intent(this, RecordListActivity::class.java))
             else -> return
         }
     }
