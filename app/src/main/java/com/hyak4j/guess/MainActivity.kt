@@ -2,6 +2,7 @@ package com.hyak4j.guess
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.hyak4j.guess.databinding.ActivityMainBinding
+import org.json.JSONArray
+import org.json.JSONObject
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     val TAG = MainActivity::class.java.simpleName
@@ -29,6 +34,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Thread{
+            val data = URL("https://api.snooker.org/examples/5.json").readText()
+            val result = Gson().fromJson(data, EventResult::class.java)
+
+            result.forEach {
+                Log.d(TAG, "onCreate: $it")
+            }
+//            val jsonArray = JSONArray(data)
+//            for (i in 0..jsonArray.length() - 1){
+//                val jsonObject = jsonArray.getJSONObject(i)
+//                val id = jsonObject.getInt("ID")
+//                println(id)
+//            }
+        }.start()
         //RecyclerView
         var recycler = binding.recycler;
         recycler.layoutManager = LinearLayoutManager(this)

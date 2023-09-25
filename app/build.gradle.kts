@@ -59,11 +59,14 @@ dependencies {
     implementation("androidx.room:room-common:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
-// 協程載入套件（請根據你的 Kotlin 版本選擇相應的協程版本）
+    // 協程載入套件（請根據你的 Kotlin 版本選擇相應的協程版本）
     val coroutinesVersion = "1.6.4"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
-    // Coroutines 載入套件 =====
+
+    // GSON
+    implementation ("com.google.code.gson:gson:2.10.1")
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
