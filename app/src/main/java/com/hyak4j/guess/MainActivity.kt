@@ -1,7 +1,10 @@
 package com.hyak4j.guess
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +13,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -17,6 +22,7 @@ import com.hyak4j.guess.databinding.ActivityMainBinding
 import java.net.URL
 
 class MainActivity : AppCompatActivity() {
+    private val REQUEST_CAMERA = 200
     val TAG = MainActivity::class.java.simpleName
     private lateinit var binding: ActivityMainBinding
     val functions = listOf<String>(
@@ -98,10 +104,42 @@ class MainActivity : AppCompatActivity() {
 
     private fun functionClicked(position: Int) {
         when(position){
+            0 -> {
+                // 拍照
+                val permission = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA)
+                if (permission == PackageManager.PERMISSION_GRANTED){
+                    takePhoto()
+                }else {
+                    ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA)
+                }
+
+            }
             1 -> startActivity(Intent(this, MaterialActivity::class.java))
             2 -> startActivity(Intent(this, RecordListActivity::class.java))
             7 -> startActivity(Intent(this, SnookerActivity::class.java))
             else -> return
+        }
+    }
+
+    private fun takePhoto() {
+        // 進行拍照
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivity(intent)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // 取得相機權限請求結果
+        if (requestCode == REQUEST_CAMERA){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                takePhoto()
+            }
         }
     }
 
