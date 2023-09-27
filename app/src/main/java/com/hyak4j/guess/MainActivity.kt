@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.hyak4j.guess.databinding.ActivityMainBinding
-import org.json.JSONArray
-import org.json.JSONObject
 import java.net.URL
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         "Parking",
         "Download coupons",
         "News",
+        "Snooker",
         "Maps"
     )
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         when(position){
             1 -> startActivity(Intent(this, MaterialActivity::class.java))
             2 -> startActivity(Intent(this, RecordListActivity::class.java))
+            7 -> startActivity(Intent(this, SnookerActivity::class.java))
             else -> return
         }
     }

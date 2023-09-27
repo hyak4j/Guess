@@ -43,7 +43,7 @@ android {
 }
 
 dependencies {
-
+    // 導入MVVM
     val lifecycle_version = "2.5.1"
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
