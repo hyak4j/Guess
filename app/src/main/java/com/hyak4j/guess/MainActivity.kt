@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -146,5 +148,19 @@ class MainActivity : AppCompatActivity() {
     class FunctionHolder(view: View) : RecyclerView.ViewHolder(view){
         // 暫存
         var nameText: TextView = view.findViewById(R.id.name)
+    }
+
+    // 取得menu物件
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    // 選擇menu
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_cache){
+            Log.d(TAG, "onOptionsItemSelected: Cache selected")
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
