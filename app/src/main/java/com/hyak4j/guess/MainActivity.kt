@@ -163,6 +163,8 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "onOptionsItemSelected: Cache selected")
             cacheService = Intent(this, CacheService::class.java)
             startService(cacheService)
+            startService(Intent(this, CacheService::class.java))
+            startService(Intent(this, CacheService::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
