@@ -121,6 +121,7 @@ class MainActivity : AppCompatActivity() {
             }
             1 -> startActivity(Intent(this, MaterialActivity::class.java))
             2 -> startActivity(Intent(this, RecordListActivity::class.java))
+            6 -> startActivity(Intent(this, NewsActivity::class.java))
             7 -> startActivity(Intent(this, SnookerActivity::class.java))
             else -> return
         }
@@ -171,6 +172,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        stopService(cacheService)
+        cacheService?.let {
+            stopService(it)
+        }
     }
 }
