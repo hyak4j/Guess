@@ -26,6 +26,7 @@ import java.net.URL
 class MainActivity : AppCompatActivity() {
     private val REQUEST_CAMERA = 200
     val TAG = MainActivity::class.java.simpleName
+    var cacheService : Intent? = null
     private lateinit var binding: ActivityMainBinding
     val functions = listOf<String>(
         "Camera",
@@ -160,7 +161,14 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_cache){
             Log.d(TAG, "onOptionsItemSelected: Cache selected")
+            cacheService = Intent(this, CacheService::class.java)
+            startService(cacheService)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopService(cacheService)
     }
 }
